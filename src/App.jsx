@@ -43,6 +43,13 @@ function App() {
           })
         );
         return;
+      } else {
+        dispatch(
+          setErrorMessages({
+            name: "error_lstSalutation",
+            value: "",
+          })
+        );
       }
       if (insurance.personal_data_api_payload.data.txtFName.length == 0) {
         dispatch(
@@ -53,16 +60,30 @@ function App() {
         );
 
         return;
+      } else {
+        dispatch(
+          setErrorMessages({
+            name: "error_txtFName",
+            value: "",
+          })
+        );
       }
       if (insurance.personal_data_api_payload.data.txtLName.length == 0) {
         dispatch(
           setErrorMessages({
             name: "error_txtLName",
-            value: "Please Fill the Second Name.",
+            value: "Please Fill the Last Name.",
           })
         );
 
         return;
+      } else {
+        dispatch(
+          setErrorMessages({
+            name: "error_txtLName",
+            value: "",
+          })
+        );
       }
       if (insurance.personal_data_api_payload.data.birthday.length == 0) {
         dispatch(
@@ -72,11 +93,17 @@ function App() {
           })
         );
         return;
+      } else {
+        dispatch(
+          setErrorMessages({
+            name: "error_birthday",
+            value: "",
+          })
+        );
       }
-      dispatch(changeStep(insurance.step + 1));
+      dispatch(changeStep(2));
     }
     if (insurance.step === 2) {
-      console.log(insurance.personal_data_api_payload);
       if (insurance.personal_data_api_payload.data.txtEmail.length == 0) {
         dispatch(
           setErrorMessages({
@@ -85,6 +112,13 @@ function App() {
           })
         );
         return;
+      } else {
+        dispatch(
+          setErrorMessages({
+            name: "error_txtEmail",
+            value: "",
+          })
+        );
       }
       if (
         insurance.personal_data_api_payload.data.txtPhone.length > 10 ||
@@ -97,11 +131,18 @@ function App() {
           })
         );
         return;
+      } else {
+        dispatch(
+          setErrorMessages({
+            name: "error_txtPhone",
+            value: "",
+          })
+        );
       }
-      dispatch(changeStep(insurance.step + 1));
+
+      dispatch(changeStep(3));
     }
     if (insurance.step === 3) {
-      console.log(insurance.personal_data_api_payload);
       if (insurance.personal_data_api_payload.data.txtPostCode.length == 0) {
         dispatch(
           setErrorMessages({
@@ -110,6 +151,13 @@ function App() {
           })
         );
         return;
+      } else {
+        dispatch(
+          setErrorMessages({
+            name: "error_txtPostCode",
+            value: "",
+          })
+        );
       }
       if (
         insurance.personal_data_api_payload.data.txtaddressline1.length == 0
@@ -121,6 +169,13 @@ function App() {
           })
         );
         return;
+      } else {
+        dispatch(
+          setErrorMessages({
+            name: "error_txtaddressline1",
+            value: "",
+          })
+        );
       }
       if (
         insurance.personal_data_api_payload.data.txtaddressline2.length == 0
@@ -132,9 +187,15 @@ function App() {
           })
         );
         return;
+      } else {
+        dispatch(
+          setErrorMessages({
+            name: "error_txtaddressline2",
+            value: "",
+          })
+        );
       }
-
-      dispatch(changeStep(insurance.step + 1));
+      dispatch(changeStep(4));
     }
   };
   const steps_collection = [
@@ -293,16 +354,21 @@ function App() {
                             : "next-button-not-active "
                         }
                         onClick={() => {
-                          callInputValidater();
+                          insurance.step === 1 || insurance.step === 2
+                            ? callInputValidater()
+                            : dispatch(changeStep(insurance.step + 1));
                         }}
                       >
                         Next
                       </button>
                     )}
+                    {console.log("1---2", insurance)}
                     {obj.finish_button && (
                       <button
                         onClick={() => {
-                          dispatch(changeStep(insurance.step + 1));
+                          insurance.step === 3
+                            ? callInputValidater()
+                            : dispatch(changeStep(insurance.step + 1));
                           dispatch(changeCollection(insurance.collection + 1));
                           onFinish(insurance.collection);
                         }}
