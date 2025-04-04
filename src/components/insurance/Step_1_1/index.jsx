@@ -76,57 +76,65 @@ const Step_1_1 = () => {
     <>
       <h2>Personal data</h2>
       <form>
-        <label>Title</label>
-        <select
-          name="lstSalutation"
-          onChange={(e) => {
-            onChange(e);
-          }}
-          value={insurance.personal_data_api_payload.data.lstSalutation}
-        >
-          <option value="Mr">Mr.</option>
-          <option value="Mrs">Mrs.</option>
-          <option value="Miss">Miss.</option>
-        </select>
-        <div className="error_message">
-          {insurance.form_error_messages.error_lstSalutation}
+        <div className="input_card">
+          <label>Title</label>
+          <select
+            name="lstSalutation"
+            onChange={(e) => {
+              onChange(e);
+            }}
+            value={insurance.personal_data_api_payload.data.lstSalutation}
+          >
+            <option value="Mr">Mr.</option>
+            <option value="Mrs">Mrs.</option>
+            <option value="Miss">Miss.</option>
+          </select>
+          <div className="error_message">
+            {insurance.form_error_messages.error_lstSalutation}
+          </div>
         </div>
-        <label>First name</label>
-        <input
-          type="text"
-          name="txtFName"
-          onChange={(e) => {
-            onChange(e);
-          }}
-          value={insurance.personal_data_api_payload.data.txtFName}
-        />
-        <div className="error_message">
-          {insurance.form_error_messages.error_txtFName}
+        <div className="input_card">
+          <label>First name</label>
+          <input
+            type="text"
+            name="txtFName"
+            onChange={(e) => {
+              onChange(e);
+            }}
+            value={insurance.personal_data_api_payload.data.txtFName}
+          />
+          <div className="error_message">
+            {insurance.form_error_messages.error_txtFName}
+          </div>
         </div>
-        <label>Last Name</label>
-        <input
-          name="txtLName"
-          type="text"
-          onChange={(e) => {
-            onChange(e);
-          }}
-          value={insurance.personal_data_api_payload.data.txtLName}
-        />
-        <div className="error_message">
-          {insurance.form_error_messages.error_txtLName}
+        <div className="input_card">
+          <label>Last Name</label>
+          <input
+            name="txtLName"
+            type="text"
+            onChange={(e) => {
+              onChange(e);
+            }}
+            value={insurance.personal_data_api_payload.data.txtLName}
+          />
+          <div className="error_message">
+            {insurance.form_error_messages.error_txtLName}
+          </div>
         </div>
-        <label for="birthday">Birthday:</label>
-        <input
-          type="date"
-          name="birthday"
-          id="birthday"
-          onChange={(e) => {
-            onChange(e);
-          }}
-          value={insurance.personal_data_api_payload.data.birthday}
-        />
-        <div className="error_message">
-          {insurance.form_error_messages.error_birthday}
+        <div className="input_card">
+          <label for="birthday">Birthday:</label>
+          <input
+            type="date"
+            name="birthday"
+            id="birthday"
+            onChange={(e) => {
+              onChange(e);
+            }}
+            value={insurance.personal_data_api_payload.data.birthday}
+          />
+          <div className="error_message">
+            {insurance.form_error_messages.error_birthday}
+          </div>
         </div>
       </form>
     </>

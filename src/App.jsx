@@ -34,7 +34,6 @@ function App() {
     }
   };
   const callInputValidater = () => {
-    console.log("1---2", insurance);
     if (insurance.step === 1) {
       if (insurance.personal_data_api_payload.data.lstSalutation.length == 0) {
         dispatch(
