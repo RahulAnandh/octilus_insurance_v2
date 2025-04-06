@@ -28,25 +28,41 @@ function App() {
   const callInputValidater = () => {
     if (insurance.step === 1) {
       if (insurance.personal_data_api_payload.data.lstSalutation.length == 0) {
-        callErrorMessage("error_lstSalutation", "Please Select Title.");
+        callErrorMessage("error_lstSalutation", "Please select a title.");
         return;
       } else {
         callErrorMessage("error_lstSalutation", "");
       }
       if (insurance.personal_data_api_payload.data.txtFName.length == 0) {
-        callErrorMessage("error_txtFName", "Please Fill the First Name.");
+        callErrorMessage("error_txtFName", "First name cannot be empty.");
+        return;
+      } else if (
+        !/^[a-zA-Z]+$/.test(insurance.personal_data_api_payload.data.txtFName)
+      ) {
+        callErrorMessage(
+          "error_txtFName",
+          "Cannot have characters or numbers besides letters."
+        );
         return;
       } else {
         callErrorMessage("error_txtFName", "");
       }
       if (insurance.personal_data_api_payload.data.txtLName.length == 0) {
-        callErrorMessage("error_txtLName", "Please Fill the Last Name.");
+        callErrorMessage("error_txtLName", "Last name cannot be empty.");
+        return;
+      } else if (
+        !/^[a-zA-Z]+$/.test(insurance.personal_data_api_payload.data.txtLName)
+      ) {
+        callErrorMessage(
+          "error_txtLName",
+          "Cannot have characters or numbers besides letters."
+        );
         return;
       } else {
         callErrorMessage("error_txtLName", "");
       }
       if (insurance.personal_data_api_payload.data.birthday.length == 0) {
-        callErrorMessage("error_birthday", "Please Select Birthday.");
+        callErrorMessage("error_birthday", "Please select birthday.");
         return;
       } else {
         callErrorMessage("error_birthday", "");
@@ -55,16 +71,41 @@ function App() {
     }
     if (insurance.step === 2) {
       if (insurance.personal_data_api_payload.data.txtEmail.length == 0) {
-        callErrorMessage("error_txtEmail", "Please Fill a Valid E mail.");
+        callErrorMessage("error_txtEmail", "E-Mail cannot be empty.");
+        return;
+      } else if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+          insurance.personal_data_api_payload.data.txtEmail
+        )
+      ) {
+        callErrorMessage("error_txtEmail", "E-Mail is not valid.");
         return;
       } else {
         callErrorMessage("error_txtEmail", "");
       }
-      if (
-        insurance.personal_data_api_payload.data.txtPhone.length > 10 ||
+      if (insurance.personal_data_api_payload.data.txtPhone.length == 0) {
+        callErrorMessage("error_txtPhone", "Phone number cannot be empty.");
+        return;
+      } else if (
         insurance.personal_data_api_payload.data.txtPhone.length < 10
       ) {
-        callErrorMessage("error_txtPhone", "Please Fill a Valid Phone Number.");
+        callErrorMessage("error_txtPhone", "Phone number is below 10 numbers");
+        return;
+      } else if (
+        insurance.personal_data_api_payload.data.txtPhone.length > 10
+      ) {
+        callErrorMessage(
+          "error_txtPhone",
+          "Phone number is more than 10 numbers"
+        );
+        return;
+      } else if (
+        !/^[0-9]+$/.test(insurance.personal_data_api_payload.data.txtPhone)
+      ) {
+        callErrorMessage(
+          "error_txtPhone",
+          "Phone number cannot have Charecters and symbols."
+        );
         return;
       } else {
         callErrorMessage("error_txtPhone", "");
@@ -73,9 +114,16 @@ function App() {
     }
     if (insurance.step === 3) {
       if (insurance.personal_data_api_payload.data.txtPostCode.length == 0) {
+        callErrorMessage("error_txtPostCode", "Post code cannot be empty.");
+        return;
+      } else if (
+        !/^[A-Z0-9]+$/.test(
+          insurance.personal_data_api_payload.data.txtPostCode
+        )
+      ) {
         callErrorMessage(
           "error_txtPostCode",
-          "Please Fill a Valid Postal Code."
+          "Post code should only contains capital letters and numbers"
         );
         return;
       } else {
@@ -86,7 +134,17 @@ function App() {
       ) {
         callErrorMessage(
           "error_txtaddressline1",
-          "Please Fill a Valid Address Line 1."
+          "Address line 1 cannot be empty.."
+        );
+        return;
+      } else if (
+        !/^[a-zA-Z0-9]+$/.test(
+          insurance.personal_data_api_payload.data.txtaddressline1
+        )
+      ) {
+        callErrorMessage(
+          "error_txtaddressline1",
+          "Address line 1 can have only numbers and letters."
         );
         return;
       } else {
@@ -97,7 +155,17 @@ function App() {
       ) {
         callErrorMessage(
           "error_txtaddressline2",
-          "Please Fill a Valid Address Line 2."
+          "Address line 2 cannot be empty."
+        );
+        return;
+      } else if (
+        !/^[a-zA-Z0-9]+$/.test(
+          insurance.personal_data_api_payload.data.txtaddressline2
+        )
+      ) {
+        callErrorMessage(
+          "error_txtaddressline2",
+          "Address line 2 can have only numbers and letters."
         );
         return;
       } else {
