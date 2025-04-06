@@ -37,7 +37,8 @@ const Step_1_1 = () => {
   const insurance = useSelector((state) => state.insurance);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (insurance.uuid !== "") {
+    console.log(insurance);
+    if (insurance.uuid.length !== 0) {
       dispatch(
         postVisitorParams({
           visitor_parameters: {
@@ -53,7 +54,7 @@ const Step_1_1 = () => {
     } else {
       dispatch(fetchUUID());
     }
-  }, [insurance.uuid, insurance.form_error_messages]);
+  }, [insurance.uuid]);
 
   const onChange = (e) => {
     const { name, value } = e.target;

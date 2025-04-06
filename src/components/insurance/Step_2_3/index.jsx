@@ -25,6 +25,9 @@ const Step_2_3 = () => {
                 .txtFirstName
             }
           />
+          <div className="error_message">
+            {insurance.form_error_messages.error_txtFirstName_step6}
+          </div>
         </div>
         <div className="input_card">
           <label>Last Name</label>
@@ -39,6 +42,9 @@ const Step_2_3 = () => {
                 .txtSecondName
             }
           />
+          <div className="error_message">
+            {insurance.form_error_messages.error_txtSecondName_step6}
+          </div>
         </div>
         <div className="input_card">
           <label>Email</label>
@@ -53,6 +59,9 @@ const Step_2_3 = () => {
                 .txtEMail
             }
           />
+          <div className="error_message">
+            {insurance.form_error_messages.error_txtEMail_step6}
+          </div>
         </div>
         <div className="input_card">
           <label>Phone number</label>
@@ -67,6 +76,9 @@ const Step_2_3 = () => {
                 .txtPhoneNumber
             }
           />
+          <div className="error_message">
+            {insurance.form_error_messages.error_txtPhoneNumber_step6}
+          </div>
         </div>
       </form>
     </>

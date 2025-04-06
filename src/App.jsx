@@ -22,180 +22,160 @@ import {
 function App() {
   const insurance = useSelector((state) => state.insurance);
   const dispatch = useDispatch();
-  const onFinish = (col) => {
-    if (col === 1) {
-      dispatch(postPersonalData(insurance.personal_data_api_payload));
-    } else if (col === 2) {
-      dispatch(
-        postDemographicInformation(
-          insurance.demographic_information_api_payload
-        )
-      );
-    }
+  const callErrorMessage = (error_name, error_text) => {
+    dispatch(setErrorMessages({ name: error_name, value: error_text }));
   };
   const callInputValidater = () => {
     if (insurance.step === 1) {
       if (insurance.personal_data_api_payload.data.lstSalutation.length == 0) {
-        dispatch(
-          setErrorMessages({
-            name: "error_lstSalutation",
-            value: "Please Select Title.",
-          })
-        );
+        callErrorMessage("error_lstSalutation", "Please Select Title.");
         return;
       } else {
-        dispatch(
-          setErrorMessages({
-            name: "error_lstSalutation",
-            value: "",
-          })
-        );
+        callErrorMessage("error_lstSalutation", "");
       }
       if (insurance.personal_data_api_payload.data.txtFName.length == 0) {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtFName",
-            value: "Please Fill the First Name.",
-          })
-        );
-
+        callErrorMessage("error_txtFName", "Please Fill the First Name.");
         return;
       } else {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtFName",
-            value: "",
-          })
-        );
+        callErrorMessage("error_txtFName", "");
       }
       if (insurance.personal_data_api_payload.data.txtLName.length == 0) {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtLName",
-            value: "Please Fill the Last Name.",
-          })
-        );
-
+        callErrorMessage("error_txtLName", "Please Fill the Last Name.");
         return;
       } else {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtLName",
-            value: "",
-          })
-        );
+        callErrorMessage("error_txtLName", "");
       }
       if (insurance.personal_data_api_payload.data.birthday.length == 0) {
-        dispatch(
-          setErrorMessages({
-            name: "error_birthday",
-            value: "Please Select Birthday.",
-          })
-        );
+        callErrorMessage("error_birthday", "Please Select Birthday.");
         return;
       } else {
-        dispatch(
-          setErrorMessages({
-            name: "error_birthday",
-            value: "",
-          })
-        );
+        callErrorMessage("error_birthday", "");
       }
       dispatch(changeStep(2));
     }
     if (insurance.step === 2) {
       if (insurance.personal_data_api_payload.data.txtEmail.length == 0) {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtEmail",
-            value: "Please Fill a Valid E mail.",
-          })
-        );
+        callErrorMessage("error_txtEmail", "Please Fill a Valid E mail.");
         return;
       } else {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtEmail",
-            value: "",
-          })
-        );
+        callErrorMessage("error_txtEmail", "");
       }
       if (
         insurance.personal_data_api_payload.data.txtPhone.length > 10 ||
         insurance.personal_data_api_payload.data.txtPhone.length < 10
       ) {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtPhone",
-            value: "Please Fill a Valid Phone Number.",
-          })
-        );
+        callErrorMessage("error_txtPhone", "Please Fill a Valid Phone Number.");
         return;
       } else {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtPhone",
-            value: "",
-          })
-        );
+        callErrorMessage("error_txtPhone", "");
       }
-
       dispatch(changeStep(3));
     }
     if (insurance.step === 3) {
       if (insurance.personal_data_api_payload.data.txtPostCode.length == 0) {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtPostCode",
-            value: "Please Fill a Valid Postal Code.",
-          })
+        callErrorMessage(
+          "error_txtPostCode",
+          "Please Fill a Valid Postal Code."
         );
         return;
       } else {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtPostCode",
-            value: "",
-          })
-        );
+        callErrorMessage("error_txtPostCode", "");
       }
       if (
         insurance.personal_data_api_payload.data.txtaddressline1.length == 0
       ) {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtaddressline1",
-            value: "Please Fill a Valid Address Line 1.",
-          })
+        callErrorMessage(
+          "error_txtaddressline1",
+          "Please Fill a Valid Address Line 1."
         );
         return;
       } else {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtaddressline1",
-            value: "",
-          })
-        );
+        callErrorMessage("error_txtaddressline1", "");
       }
       if (
         insurance.personal_data_api_payload.data.txtaddressline2.length == 0
       ) {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtaddressline2",
-            value: "Please Fill a Valid Address Line 2.",
-          })
+        callErrorMessage(
+          "error_txtaddressline2",
+          "Please Fill a Valid Address Line 2."
         );
         return;
       } else {
-        dispatch(
-          setErrorMessages({
-            name: "error_txtaddressline2",
-            value: "",
-          })
-        );
+        callErrorMessage("error_txtaddressline2", "");
       }
       dispatch(changeStep(4));
+      dispatch(changeCollection(2));
+      dispatch(postPersonalData(insurance.personal_data_api_payload));
+    }
+    console.log("1---5", insurance);
+    if (insurance.step === 6) {
+      if (
+        insurance.demographic_information_api_payload.question_data.txtFirstName
+          .length == 0
+      ) {
+        callErrorMessage(
+          "error_txtFirstName_step6",
+          "Please Fill a Valid First Name."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtFirstName_step6", "");
+      }
+      if (
+        insurance.demographic_information_api_payload.question_data
+          .txtSecondName.length == 0
+      ) {
+        callErrorMessage(
+          "error_txtSecondName_step6",
+          "Please Fill a Valid Second Name."
+        );
+
+        return;
+      } else {
+        callErrorMessage("error_txtPhoneNumber_step6", "");
+      }
+      if (
+        insurance.demographic_information_api_payload.question_data.txtEMail
+          .length == 0
+      ) {
+        callErrorMessage("error_txtEMail_step6", "Please Fill a Valid E Mail.");
+        return;
+      } else {
+        callErrorMessage("error_txtEMail_step6", "");
+      }
+      if (
+        insurance.demographic_information_api_payload.question_data
+          .txtPhoneNumber.length == 0
+      ) {
+        callErrorMessage(
+          "error_txtPhoneNumber_step6",
+          "Please Fill a Valid Phone Number."
+        );
+        return;
+      } else {
+        callErrorMessage("error_txtPhoneNumber_step6", "");
+      }
+      dispatch(changeStep(7));
+      dispatch(changeCollection(3));
+      dispatch(
+        postDemographicInformation({
+          visitor_parameters: insurance.uuid,
+          question_data: {
+            txtFirstName:
+              insurance.demographic_information_api_payload.question_data
+                .txtFirstName,
+            txtSecondName:
+              insurance.demographic_information_api_payload.question_data
+                .txtSecondName,
+            txtEMail:
+              insurance.demographic_information_api_payload.question_data
+                .txtEMail,
+            txtPhoneNumber:
+              insurance.demographic_information_api_payload.question_data
+                .txtPhoneNumber,
+          },
+        })
+      );
     }
   };
   const steps_collection = [
@@ -366,11 +346,7 @@ function App() {
                     {obj.finish_button && (
                       <button
                         onClick={() => {
-                          insurance.step === 3
-                            ? callInputValidater()
-                            : dispatch(changeStep(insurance.step + 1));
-                          dispatch(changeCollection(insurance.collection + 1));
-                          onFinish(insurance.collection);
+                          callInputValidater();
                         }}
                         className={
                           obj.finish_button
@@ -396,6 +372,7 @@ function App() {
             <FinalResultPage />
           </div>
         )}
+        {console.log("1---A", insurance)}
       </div>
     </div>
   );
