@@ -104,7 +104,7 @@ function App() {
       ) {
         callErrorMessage(
           "error_txtPhone",
-          "Phone number cannot have Charecters and symbols."
+          "Phone number cannot have Charecters or spechial charecters."
         );
         return;
       } else {
@@ -138,7 +138,7 @@ function App() {
         );
         return;
       } else if (
-        !/^[a-zA-Z0-9]+$/.test(
+        !/^[a-zA-Z0-9\s]+$/.test(
           insurance.personal_data_api_payload.data.txtaddressline1
         )
       ) {
@@ -159,7 +159,7 @@ function App() {
         );
         return;
       } else if (
-        !/^[a-zA-Z0-9]+$/.test(
+        !/^[a-zA-Z0-9\s]+$/.test(
           insurance.personal_data_api_payload.data.txtaddressline2
         )
       ) {
@@ -175,15 +175,29 @@ function App() {
       dispatch(changeCollection(2));
       dispatch(postPersonalData(insurance.personal_data_api_payload));
     }
-    console.log("1---5", insurance);
-    if (insurance.step === 6) {
+    if (
+      insurance.step === 6 &&
+      insurance.demographic_information_api_payload.question_data.recommend ===
+        "Yes"
+    ) {
       if (
         insurance.demographic_information_api_payload.question_data.txtFirstName
           .length == 0
       ) {
         callErrorMessage(
           "error_txtFirstName_step6",
-          "Please Fill a Valid First Name."
+          "First name cannot be empty."
+        );
+        return;
+      } else if (
+        !/^[a-zA-Z]+$/.test(
+          insurance.demographic_information_api_payload.question_data
+            .txtFirstName
+        )
+      ) {
+        callErrorMessage(
+          "error_txtFirstName_step6",
+          "First name cannot have Numbers or Special Charecters."
         );
         return;
       } else {
@@ -195,9 +209,19 @@ function App() {
       ) {
         callErrorMessage(
           "error_txtSecondName_step6",
-          "Please Fill a Valid Second Name."
+          "Second name cannot be empty."
         );
-
+        return;
+      } else if (
+        !/^[a-zA-Z]+$/.test(
+          insurance.demographic_information_api_payload.question_data
+            .txtSecondName
+        )
+      ) {
+        callErrorMessage(
+          "error_txtSecondName_step6",
+          "Second name cannot have Numbers or Special Charecters."
+        );
         return;
       } else {
         callErrorMessage("error_txtPhoneNumber_step6", "");
@@ -206,7 +230,14 @@ function App() {
         insurance.demographic_information_api_payload.question_data.txtEMail
           .length == 0
       ) {
-        callErrorMessage("error_txtEMail_step6", "Please Fill a Valid E Mail.");
+        callErrorMessage("error_txtEMail_step6", "E-Mail cannot be empty.");
+        return;
+      } else if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+          insurance.demographic_information_api_payload.question_data.txtEMail
+        )
+      ) {
+        callErrorMessage("error_txtEMail_step6", "E-Mail is not valid");
         return;
       } else {
         callErrorMessage("error_txtEMail_step6", "");
@@ -217,7 +248,36 @@ function App() {
       ) {
         callErrorMessage(
           "error_txtPhoneNumber_step6",
-          "Please Fill a Valid Phone Number."
+          "Phone number cannot be empty."
+        );
+        return;
+      } else if (
+        insurance.demographic_information_api_payload.question_data
+          .txtPhoneNumber.length < 10
+      ) {
+        callErrorMessage(
+          "error_txtPhoneNumber_step6",
+          "Phone number cannot be less than 10 digits"
+        );
+        return;
+      } else if (
+        insurance.demographic_information_api_payload.question_data
+          .txtPhoneNumber.length > 10
+      ) {
+        callErrorMessage(
+          "error_txtPhoneNumber_step6",
+          "Phone number cannot greater than 10 digits"
+        );
+        return;
+      } else if (
+        !/^[0-9]+$/.test(
+          insurance.demographic_information_api_payload.question_data
+            .txtPhoneNumber
+        )
+      ) {
+        callErrorMessage(
+          "error_txtPhoneNumber_step6",
+          "Phone number cannot have Charecters or spechial charecters."
         );
         return;
       } else {
@@ -244,6 +304,12 @@ function App() {
           },
         })
       );
+    } else if (
+      insurance.demographic_information_api_payload.question_data.recommend ===
+      "No"
+    ) {
+      dispatch(changeStep(7));
+      dispatch(changeCollection(3));
     }
   };
   const steps_collection = [

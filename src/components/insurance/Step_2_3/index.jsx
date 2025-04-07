@@ -24,6 +24,12 @@ const Step_2_3 = () => {
               insurance.demographic_information_api_payload.question_data
                 .txtFirstName
             }
+            disabled={
+              insurance.demographic_information_api_payload.question_data
+                .recommend === "No"
+                ? true
+                : false
+            }
           />
           <div className="error_message">
             {insurance.form_error_messages.error_txtFirstName_step6}
@@ -40,6 +46,12 @@ const Step_2_3 = () => {
             value={
               insurance.demographic_information_api_payload.question_data
                 .txtSecondName
+            }
+            disabled={
+              insurance.demographic_information_api_payload.question_data
+                .recommend === "No"
+                ? true
+                : false
             }
           />
           <div className="error_message">
@@ -58,6 +70,12 @@ const Step_2_3 = () => {
               insurance.demographic_information_api_payload.question_data
                 .txtEMail
             }
+            disabled={
+              insurance.demographic_information_api_payload.question_data
+                .recommend === "No"
+                ? true
+                : false
+            }
           />
           <div className="error_message">
             {insurance.form_error_messages.error_txtEMail_step6}
@@ -74,6 +92,12 @@ const Step_2_3 = () => {
             value={
               insurance.demographic_information_api_payload.question_data
                 .txtPhoneNumber
+            }
+            disabled={
+              insurance.demographic_information_api_payload.question_data
+                .recommend === "No"
+                ? true
+                : false
             }
           />
           <div className="error_message">
