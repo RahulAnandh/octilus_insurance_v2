@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -18,7 +18,7 @@ import {
   postDemographicInformation,
   setErrorMessages,
 } from "./features/insurance/insuranceSlice";
-
+import { message } from "antd";
 function App() {
   const insurance = useSelector((state) => state.insurance);
   const dispatch = useDispatch();
@@ -441,9 +441,18 @@ function App() {
       finish_button: true,
     },
   ];
-
+  const [messageApi, contextHolder] = message.useMessage();
+  useEffect(() => {
+    if (!insurance.success_message == "") {
+      messageApi.open({
+        type: "success",
+        content: insurance.success_message,
+      });
+    }
+  }, [insurance.success_message]);
   return (
     <div className="container">
+      {contextHolder}
       <div className="heading-and-step-container">
         <div className="form-heading">
           <h1>Survey</h1>

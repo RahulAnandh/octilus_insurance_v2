@@ -117,6 +117,7 @@ const insuranceSlice = createSlice({
     status: "idle", // 'idle', 'loading', 'succeeded', 'failed'
     error: null,
     uuid: "",
+    success_message: "",
     form_error_messages: {
       error_lstSalutation: "",
       error_txtFName: "",
@@ -238,6 +239,7 @@ const insuranceSlice = createSlice({
           action.payload.uuid;
         state.signature_data_api_payload.visitor_parameters.uuid =
           action.payload.uuid;
+        state.success_message = "Fetching UUID is Succesful";
       })
       .addCase(fetchUUID.rejected, (state, action) => {
         state.status = "failed";
@@ -264,6 +266,7 @@ const insuranceSlice = createSlice({
       })
       .addCase(postVisitorParams.fulfilled, (state, action) => {
         state.status = "succeeded";
+        state.success_message = "Visitor data updation is succesful.";
       })
       .addCase(postVisitorParams.rejected, (state, action) => {
         state.status = "failed";
@@ -279,6 +282,7 @@ const insuranceSlice = createSlice({
       .addCase(postPersonalData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.status_user_data = true;
+        state.success_message = "Personel data created sussesfully";
       })
       .addCase(postPersonalData.rejected, (state, action) => {
         state.status = "failed";
@@ -292,6 +296,7 @@ const insuranceSlice = createSlice({
       .addCase(postDemographicInformation.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.status_questions = true;
+        state.success_message = "Demographic data updation succesful.";
       })
       .addCase(postDemographicInformation.rejected, (state, action) => {
         state.status = "failed";
@@ -305,6 +310,7 @@ const insuranceSlice = createSlice({
       .addCase(postSignatureData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.status_signature = true;
+        state.success_message = "Signature data updated succesfully.";
       })
       .addCase(postSignatureData.rejected, (state, action) => {
         state.status = "failed";
